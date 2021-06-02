@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node server",
+    "start": "nodemon --watch server server.js"
+  },
+  "author": "ZTAVRUZ",
+  "dependencies": {
+    "nodemon": "^2.0.4",
+    "ffmpeg-static": "^4.2.7",
+    "ws": "^7.3.1"
+  }
+
+}

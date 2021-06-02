@@ -1,0 +1,67 @@
+version: '3.7'
+
+
+services:
+
+  mongodb:
+    container_name: mongodb
+    hostname: mongodb
+    image: mongo:4.4.1
+    command: mongod
+    volumes:
+      - ./mongodb:/data/db
+    ports:
+      - 27017:27017
+
+
+  wifi-client:
+    container_name: wifi-client
+    hostname: wifi-client
+    build: ./wifi-client
+    restart: always
+    volumes:
+      - ./wifi-client:/wifi-client
+    ports:
+      - 80:80
+      - 443:443
+    env_file:
+      - .env
+    environment:
+      - TZ=Europe/Moscow
+    depends_on:
+      - mongodb
+
+  wifi-api:
+    container_name: wifi-api
+    hostname: wifi-api
+    build: ./wifi-api
+    restart: always
+    volumes:
+      - ./wifi-api:/wifi-api
+      - /mnt/archiv:/mnt/archiv
+    ports:
+      - 6533:6533
+    links:
+      - mongodb
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+    environment:
+      - TZ=Europe/Moscow
+
+  wifi-stream:
+    container_name: wifi-stream
+    hostname: wifi-stream
+    build: ./wifi-stream
+    restart: always
+#    volumes:
+#      - ./wifi-stream:/wifi-stream
+    ports:
+      - 6853:6853
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+    environment:
+      - TZ=Europe/Moscow

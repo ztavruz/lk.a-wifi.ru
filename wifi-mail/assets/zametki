@@ -1,0 +1,13 @@
+
+
+список занятых портов        - sudo lsof -i -P -n | grep LISTEN
+
+убить процесс на порту 3000  - sudo kill $(sudo lsof -t -i:27017)
+
+удалить папку с содержимым   - rm -rf nameFolder
+
+перезапуск nginx - systemctl nginx reload
+
+копирование файлов - cp /oldFile /newFile
+
+создать временного пользователя -
